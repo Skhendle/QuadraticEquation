@@ -1,7 +1,6 @@
 import json, logging
 from fastapi import Depends, FastAPI
 
-
 app = FastAPI()
 
 from app.quadratic_equation import route

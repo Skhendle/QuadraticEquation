@@ -5,7 +5,7 @@ from fastapi import Depends, FastAPI
 
 app = FastAPI()
 
-from app.quadratic_equation.route import route
+from app.quadratic_equation import route
 app.include_router(route.router)
 
 
