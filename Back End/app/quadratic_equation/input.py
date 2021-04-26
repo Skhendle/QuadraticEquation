@@ -3,6 +3,6 @@ from typing import List, Optional
 
 
 class QuadraticEquationModel(BaseModel):
-    a: int
-    b: int
-    c: int
+    a: float
+    b: float
+    c: float
