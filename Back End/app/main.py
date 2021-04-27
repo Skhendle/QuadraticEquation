@@ -26,5 +26,5 @@ app.include_router(route.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Web Server Application! Hello Scorpio"}
+    return {"message": "Web Server Application!"}
 
