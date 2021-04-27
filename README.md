@@ -18,10 +18,10 @@ Backend:
 Folder: quadratic_equation (API):
 
 1.__init__.py : Allows imports between different folders.<br>
-2. input.py : Models inputs and declares the type of data for each input<br>
-3. route.py : Contains routeting logic. Since each folder has exactly one API, then this file contains only one route function.<br>
-4. service.py : Contains the execution logic of the API (carries the logic for the requirements).<br>
-5. main.py : Contains the logic to start the API (each API can launch on its own)<br>
-6. test_unit.py : Contains the unit test for the function with exucuting logic in service.py.
+2. input.py : Models inputs and declares the type of data neede for each feature.<br>
+3. route.py : Contains routing function. Creates an endpoint which users can access with a url.<br>
+4. service.py : Contains the execution logic of the feature (carries the logic for the requirements).<br>
+5. main.py : Allows us to run the route as a server.<br>
+6. test_unit.py : Contains the unit test for the feature with excecuting logic in service.py.
 ```
 
