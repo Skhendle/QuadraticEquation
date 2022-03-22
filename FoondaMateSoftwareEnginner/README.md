@@ -25,3 +25,6 @@ Note, they don’t always know what dates they have data for, and are at the mer
 2. Write tests for your business logic, bonus points for testing other layers such as the networking layer.
 3. Write a Readme.md in your repo on how your app works and how one can go about setting it up locally.
 4. Push your code to a public repo on GitHub and send the link via email to work@foondamate.com
+
+# Solution
+
