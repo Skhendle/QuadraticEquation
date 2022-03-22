@@ -3,36 +3,39 @@ import requests
 import matplotlib.pyplot as plt
 import matplotlib.dates
 
-## Programs takes to arguments. -> Order Type, Graph Type
+GRAPH_TYPE = ["line", "scatter"]
+GRAPH_ORDER = ["start", "end"]
 
-try:
-  order_type = sys.argv[0]
-  graph_type = sys.argv[1]
-except:
-  print("Input Error:Invalid Application Arguements")
+def plot_graphs(graph_order:str, graph_type:str):
+  # Making API call to get data and converting it into a MAP
+  request = requests.get("http://sam-user-activity.eu-west-1.elasticbeanstalk.com/")
+  data = ast.literal_eval(request.text)
+
+  # Sorting Data, and casting values to datetime(date) and int(number of users)
+  sort_orders = sorted(data.items(), key=lambda x: x[1], reverse=False)
+  xdata = [datetime.datetime.strptime(x[0], '%d-%m-%Y') for x in sort_orders]
+  ydata = [int(x[1]) for x in sort_orders]
+
+  if graph_type == "line":
+    plt.plot(xdata, ydata)
+  else:
+    plt.scatter(xdata, ydata, label = "label_name" )
+  
+  if graph_order == "end":
+    plt.xlim(max(xdata), min(xdata))
+
+  plt.show()
 
 
+if __name__ == "__main__":
+  try:
+    graph_order = sys.argv[1]
+    graph_type = sys.argv[2]
 
-# Getting Data and converting it to a map
-request = requests.get("http://sam-user-activity.eu-west-1.elasticbeanstalk.com/")
-data = ast.literal_eval(request.text)
-#if order_type == "start":
-sort_orders = sorted(data.items(), key=lambda x: x[1], reverse=False)
-# else:
-#   sort_orders = sorted(data.items(), key=lambda x: x[1], reverse=False)
-
-# print(sort_orders)
-
-xdata = [datetime.datetime.strptime(x[0], '%d-%m-%Y') for x in sort_orders]
-ydata = [int(x[1]) for x in sort_orders]
-
-
-# my_list = sorted(sorted_keys, reverse=False) 
-# print(my_list)
-# dates = matplotlib.dates.date2num(xdata)
-# plt.plot(xdata, ydata)
-plt.scatter(xdata, ydata, label = "label_name" )
-plt.gcf().autofmt_xdate()
-# plt.xlim(max(xdata), min(xdata))
-
-plt.show()
+    if graph_order in GRAPH_ORDER and graph_type in GRAPH_TYPE:
+      plot_graphs(graph_type=graph_type, graph_order=graph_order)
+    else:
+      raise Exception("Invalid Application Arguements")
+  except Exception as e:
+    print(e)
+  
