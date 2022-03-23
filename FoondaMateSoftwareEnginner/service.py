@@ -1,5 +1,4 @@
-import sys, ast, datetime
-import requests
+import sys, ast, datetime, requests
 import matplotlib.pyplot as plt
 import matplotlib.dates
 
@@ -21,7 +20,6 @@ def plot_graphs(start_date: str, end_date:str):
 
   # Sorting Data, and casting values to datetime(date) and int(number of users)
   sort_orders = sorted(data.items(), key=lambda x: x[1], reverse=False)
-  print(sort_orders)
   xdata = []
   ydata = []
   for item in sort_orders:
