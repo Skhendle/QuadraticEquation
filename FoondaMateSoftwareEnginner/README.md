@@ -31,10 +31,16 @@ Please note this solution was built and tested on 0.04.4 LTS with Python 3.9, th
 ## To Run The Application
 ```console
 # Activating virtual environment and installing requirements
-user@device:~$ python3.9 -m venv env
-user@device:~$ source ./env/bin/activate
-user@device:~$ pip3 install requirements.txt
+user@device:~/QuadraticEquation$ python3.9 -m venv env
+user@device:~/QuadraticEquation$ source ./env/bin/activate
+user@device:~/QuadraticEquation$ pip3 install requirements.txt
 
+# Start and End date should be formatted "d-m-yr" e.g "16-02-2022"
+# To run the application
+# python FoondaMateSoftwareEnginner/main.py start_date end_date
+user@device:~/QuadraticEquation$ python FoondaMateSoftwareEnginner/main.py 01-01-2022 02-02-2022
 
+# To run tests
+user@device:~/QuadraticEquation$ python FoondaMateSoftwareEnginner/test_service.py
 ```
 
