@@ -3,15 +3,17 @@ import requests
 import matplotlib.pyplot as plt
 import matplotlib.dates
 
-GRAPH_TYPE = ["line", "scatter"]
-GRAPH_ORDER = ["start", "end"]
 
-def plot_graphs(graph_order:str, graph_type:str):
-  
-  if graph_order.lower() not in GRAPH_ORDER:
-    return "Invalid GRAPH_ORDER Arguement"
-  if graph_type.lower() not in GRAPH_TYPE:
-    return "Invalid GRAPH_TYPE Arguement"
+def plot_graphs(start_date: str, end_date:str):
+
+  try:
+    start_date = datetime.datetime.strptime(start_date, '%d-%m-%Y')
+    end_date = datetime.datetime.strptime(end_date, '%d-%m-%Y')
+  except Exception as e:
+    raise Exception("Invalid start and end date formating(d-m-yr e.g 16-2-)")
+
+  if start_date.date() >= end_date.date():
+    raise Exception("Invalid start and end date interval")
     
   # Making API call to get data and converting it into a MAP
   request = requests.get("http://sam-user-activity.eu-west-1.elasticbeanstalk.com/")
@@ -19,16 +21,19 @@ def plot_graphs(graph_order:str, graph_type:str):
 
   # Sorting Data, and casting values to datetime(date) and int(number of users)
   sort_orders = sorted(data.items(), key=lambda x: x[1], reverse=False)
-  xdata = [datetime.datetime.strptime(x[0], '%d-%m-%Y') for x in sort_orders]
-  ydata = [int(x[1]) for x in sort_orders]
+  print(sort_orders)
+  xdata = []
+  ydata = []
+  for item in sort_orders:
+    if datetime.datetime.strptime(item[0], '%d-%m-%Y') >= start_date and  datetime.datetime.strptime(item[0], '%d-%m-%Y') <= end_date:
+      xdata.append(datetime.datetime.strptime(item[0], '%d-%m-%Y') )
+      ydata.append(int(item[1]))
 
-  if graph_type == "line":
-    plt.plot(xdata, ydata)
-  else:
-    plt.scatter(xdata, ydata, label = "label_name" )
+
+  plt.plot(xdata, ydata, label = "Userbase Growth")
+  plt.scatter(xdata, ydata, label = "Userbase Growth" )
   
-  if graph_order == "end":
-    plt.xlim(max(xdata), min(xdata))
+  # plt.xlim(max(xdata), min(xdata))
 
   plt.show()
 
