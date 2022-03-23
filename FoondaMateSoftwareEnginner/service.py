@@ -7,6 +7,12 @@ GRAPH_TYPE = ["line", "scatter"]
 GRAPH_ORDER = ["start", "end"]
 
 def plot_graphs(graph_order:str, graph_type:str):
+  
+  if graph_order.lower() not in GRAPH_ORDER:
+    return "Invalid GRAPH_ORDER Arguement"
+  if graph_type.lower() not in GRAPH_TYPE:
+    return "Invalid GRAPH_TYPE Arguement"
+    
   # Making API call to get data and converting it into a MAP
   request = requests.get("http://sam-user-activity.eu-west-1.elasticbeanstalk.com/")
   data = ast.literal_eval(request.text)
@@ -26,16 +32,4 @@ def plot_graphs(graph_order:str, graph_type:str):
 
   plt.show()
 
-
-if __name__ == "__main__":
-  try:
-    graph_order = sys.argv[1]
-    graph_type = sys.argv[2]
-
-    if graph_order in GRAPH_ORDER and graph_type in GRAPH_TYPE:
-      plot_graphs(graph_type=graph_type, graph_order=graph_order)
-    else:
-      raise Exception("Invalid Application Arguements")
-  except Exception as e:
-    print(e)
   
